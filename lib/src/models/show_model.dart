@@ -1,26 +1,26 @@
-class Peliculas {
-  List<Pelicula> items = [];
+class Shows {
+  List<Show> items = [];
 
-  Peliculas();
+  Shows();
 
-  Peliculas.fromJsonList(List<dynamic> jsonList) {
+  Shows.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
     for (var item in jsonList) {
-      final Pelicula pelicula = new Pelicula.fromJsonMap(item);
-      if (pelicula.posterPath != null &&
-          !pelicula.posterPath.toString().contains('svg')) items.add(pelicula);
+      final Show show = new Show.fromJsonMap(item);
+      if (show.posterPath != null &&
+          !show.posterPath.toString().contains('svg')) items.add(show);
     }
   }
 }
 
-class Pelicula {
+class Show {
   String uniqueId;
 
   int voteCount;
   int id;
   double voteAverage;
-  String title;
+  String name;
   double popularity;
   String posterPath;
   String originalLanguage;
@@ -31,11 +31,11 @@ class Pelicula {
   String overview;
   String releaseDate;
 
-  Pelicula({
+  Show({
     this.voteCount,
     this.id,
     this.voteAverage,
-    this.title,
+    this.name,
     this.popularity,
     this.posterPath,
     this.originalLanguage,
@@ -47,15 +47,15 @@ class Pelicula {
     this.releaseDate,
   });
 
-  Pelicula.fromJsonMap(Map<String, dynamic> json) {
+  Show.fromJsonMap(Map<String, dynamic> json) {
     voteCount = json['vote_count'];
     id = json['id'];
     voteAverage = json['vote_average'] / 1;
-    title = json['title']; // Pelicula
+    name = json['name'];
     popularity = json['popularity'] / 1;
     posterPath = json['poster_path'];
     originalLanguage = json['original_language'];
-    originalTitle = json['original_title']; // Pelicula
+    originalTitle = json['original_title'];
     genreIds = json['genre_ids'].cast<int>();
     backdropPath = json['backdrop_path'];
     adult = json['adult'];

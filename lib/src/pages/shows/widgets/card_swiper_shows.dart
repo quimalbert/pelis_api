@@ -1,12 +1,12 @@
+import 'package:actors_app/src/models/show_model.dart';
+import 'package:actors_app/src/pages/shows/show_detail.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:scooby_app/src/models/pelicula_model.dart';
 
-class CardSwiper extends StatelessWidget {
-  final List<Pelicula> peliculas;
+class CardSwiperShow extends StatelessWidget {
+  final List<Show> shows;
 
-  CardSwiper({@required this.peliculas});
+  CardSwiperShow({@required this.shows});
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +19,24 @@ class CardSwiper extends StatelessWidget {
         itemWidth: _screenSize.width * 0.7,
         itemHeight: _screenSize.height * 0.5,
         itemBuilder: (BuildContext context, int index) {
-          peliculas[index].uniqueId = '${peliculas[index].id}-tarjeta';
+          shows[index].uniqueId = '${shows[index].id}-tarjeta';
 
           return Hero(
-            tag: peliculas[index].uniqueId,
+            tag: shows[index].id,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'detalle', arguments: peliculas[index]),
+                  onTap: () => Navigator.pushNamed(context, ShowDetail.routeID,
+                      arguments: shows[index]),
                   child: FadeInImage(
-                    image: NetworkImage(peliculas[index].getPosterImg()),
+                    image: NetworkImage(shows[index].getPosterImg()),
                     placeholder: AssetImage('assets/img/no-image.jpg'),
                     fit: BoxFit.cover,
                   ),
                 )),
           );
         },
-        itemCount: peliculas.length,
+        itemCount: shows.length,
         // pagination: new SwiperPagination(),
         // control: new SwiperControl(),
       ),

@@ -1,5 +1,6 @@
+import 'package:actors_app/src/models/pelicula_model.dart';
+import 'package:actors_app/src/pages/movies/movie_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:scooby_app/src/models/pelicula_model.dart';
 
 class MovieHorizontal extends StatelessWidget {
   final List<Pelicula> peliculas;
@@ -7,20 +8,22 @@ class MovieHorizontal extends StatelessWidget {
 
   MovieHorizontal({@required this.peliculas, @required this.siguientePagina});
 
-  final _pageController = new PageController(initialPage: 1, viewportFraction: 0.3);
+  final _pageController =
+      new PageController(initialPage: 1, viewportFraction: 0.3);
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
     _pageController.addListener(() {
-      if (_pageController.position.pixels >= _pageController.position.maxScrollExtent - 200) {
+      if (_pageController.position.pixels >=
+          _pageController.position.maxScrollExtent - 200) {
         siguientePagina();
       }
     });
 
     return Container(
-      height: _screenSize.height * 0.2,
+      height: _screenSize.height * 0.25,
       child: PageView.builder(
         pageSnapping: false,
         controller: _pageController,
@@ -62,7 +65,7 @@ class MovieHorizontal extends StatelessWidget {
     return GestureDetector(
       child: tarjeta,
       onTap: () {
-        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+        Navigator.pushNamed(context, MovieDetail.routeID, arguments: pelicula);
       },
     );
   }

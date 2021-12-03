@@ -1,30 +1,14 @@
+import 'package:actors_app/src/models/pelicula_model.dart';
+import 'package:actors_app/src/pages/movies/movie_detail.dart';
+import 'package:actors_app/src/provider/app_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scooby_app/src/models/pelicula_model.dart';
-import 'package:scooby_app/src/providers/peliculas_provider.dart';
 
-class DataSearch extends SearchDelegate {
+class SearchMovies extends SearchDelegate {
   String seleccion = '';
-  final peliculasProvider = new PeliculasProvider();
-
-  final peliculas = [
-    'Spiderman',
-    'Aquaman',
-    'Batman',
-    'Shazam!',
-    'Ironman',
-    'Capitan America',
-    'Superman',
-    'Ironman 2',
-    'Ironman 3',
-    'Ironman 4',
-    'Ironman 5',
-  ];
-
-  final peliculasRecientes = ['Spiderman', 'Capitan America'];
+  final AppProvider peliculasProvider = new AppProvider();
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // Las acciones de nuestro AppBar
     return [
       IconButton(
         icon: Icon(Icons.clear),
@@ -70,7 +54,7 @@ class DataSearch extends SearchDelegate {
     }
 
     return FutureBuilder(
-      future: peliculasProvider.buscarPelicula(query),
+      future: peliculasProvider.searchMovies(query),
       builder: (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
         if (snapshot.hasData) {
           final peliculas = snapshot.data;
@@ -85,11 +69,11 @@ class DataSearch extends SearchDelegate {
                 fit: BoxFit.contain,
               ),
               title: Text(pelicula.title),
-              subtitle: Text(pelicula.originalTitle),
+              subtitle: Text(pelicula.releaseDate),
               onTap: () {
                 close(context, null);
-                pelicula.uniqueId = '';
-                Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+                Navigator.pushNamed(context, MovieDetail.routeID,
+                    arguments: pelicula);
               },
             );
           }).toList());
@@ -99,30 +83,4 @@ class DataSearch extends SearchDelegate {
       },
     );
   }
-
-  // @override
-  // Widget buildSuggestions(BuildContext context) {
-  //   // Son las sugerencias que aparecen cuando la persona escribe
-
-  //   final listaSugerida = ( query.isEmpty )
-  //                           ? peliculasRecientes
-  //                           : peliculas.where(
-  //                             (p)=> p.toLowerCase().startsWith(query.toLowerCase())
-  //                           ).toList();
-
-  //   return ListView.builder(
-  //     itemCount: listaSugerida.length,
-  //     itemBuilder: (context, i) {
-  //       return ListTile(
-  //         leading: Icon(Icons.movie),
-  //         title: Text(listaSugerida[i]),
-  //         onTap: (){
-  //           seleccion = listaSugerida[i];
-  //           showResults( context );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
 }

@@ -1,7 +1,10 @@
+import 'package:actors_app/src/pages/actors/actor_detail.dart';
+import 'package:actors_app/src/pages/actors/actor_page.dart';
+import 'package:actors_app/src/pages/movies/movie_detail.dart';
+import 'package:actors_app/src/pages/movies/movie_page.dart';
+import 'package:actors_app/src/pages/shows/show_detail.dart';
+import 'package:actors_app/src/pages/shows/show_page.dart';
 import 'package:flutter/material.dart';
-
-import 'package:scooby_app/src/pages/home_page.dart';
-import 'package:scooby_app/src/pages/pelicula_detalle.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,8 +16,12 @@ class MyApp extends StatelessWidget {
       title: 'Peliculas TMDB',
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => HomePage(),
-        'detalle': (BuildContext context) => PeliculaDetalle(),
+        '/': (BuildContext context) => ActorPage(),
+        MoviePage.routeID: (BuildContext context) => MoviePage(),
+        ActorDetail.routeID: (BuildContext context) => ActorDetail(),
+        MovieDetail.routeID: (BuildContext context) => MovieDetail(),
+        ShowPage.routeID: (BuildContext context) => ShowPage(),
+        ShowDetail.routeID: (BuildContext context) => ShowDetail(),
       },
     );
   }
